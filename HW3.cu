@@ -282,7 +282,7 @@ void getForces()
 			float dy = Position[i].y - Position[j].y;
 			float dz = Position[i].z - Position[j].z;
 			float distance = sqrt(dx*dx + dy*dy + dz*dz);
-			float personalBubble = 10000.0;
+			float personalBubble = 5000.0;
 
 			if(distance < (SphereDiameter + 0.1))
 			{
