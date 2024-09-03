@@ -290,9 +290,9 @@ void getForces()
 				Force[i].y += personalBubble*(SphereDiameter - distance)*dy/distance;
 				Force[i].z += personalBubble*(SphereDiameter - distance)*dz/distance;
 
-				Force[j].x += personalBubble*(SphereDiameter - distance)*dx/distance;
-				Force[j].y += personalBubble*(SphereDiameter - distance)*dy/distance;
-				Force[j].z += personalBubble*(SphereDiameter - distance)*dz/distance;
+				Force[j].x -= personalBubble*(SphereDiameter - distance)*dx/distance;
+				Force[j].y -= personalBubble*(SphereDiameter - distance)*dy/distance;
+				Force[j].z -= personalBubble*(SphereDiameter - distance)*dz/distance;
 			}
 		}
 	}
