@@ -339,7 +339,7 @@ void getForces()
 
 				if(inOut > 0.0) 
 				{
-					magnitude = magnitude*kSphereReduction;
+					magnitude = kSphere*(SphereDiameter - d)*kSphereReduction;
 				}
 				else 
 				{
