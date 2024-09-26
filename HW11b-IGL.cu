@@ -450,7 +450,7 @@ void getForces()
 				}
 				
 				intersectionArea = 6*(SphereDiameter - d.w);
-				bodyVolume = (2*SphereDiameter - d.w) * (SphereDiameter + d.w)
+				bodyVolume = (2*SphereDiameter - d.w) * (SphereDiameter + d.w);
 				
 				dv.x = Velocity[j].x - Velocity[i].x;
 				dv.y = Velocity[j].y - Velocity[i].y;
