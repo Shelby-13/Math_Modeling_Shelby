@@ -34,7 +34,7 @@ int PrintCount;
 double MassUnitConverter;
 double LengthUnitConverter;
 double TimeUnitConverter;
-float GravityConstant;
+float AttractionForce;			//Was GravityConstant
 double massOfMolecule;
 double diameterOfMolecule;
 double densityOfMolecule;
@@ -260,9 +260,9 @@ void setInitialConditions()
 	LengthUnitConverter = 1; // micron
 	TimeUnitConverter = 1.0*10E-4; // seconds  (1 little second)
 	
-	printf("\n MassUnitConverter = %e picograms", MassUnitConverter);
-	printf("\n LengthUnitConverter = %e micrometers", LengthUnitConverter);
-	printf("\n TimeUnitConverter = %e seconds", TimeUnitConverter);
+	printf("\n MassUnitConverter = %e picograms (pg)", MassUnitConverter);
+	printf("\n LengthUnitConverter = %e micrometers (micron)", LengthUnitConverter);
+	printf("\n TimeUnitConverter = %e seconds (s)", TimeUnitConverter);
 	printf("\n");
 	
 	// for(int i = 0; i < NUMBER_OF_BODIES; i++)
@@ -272,8 +272,8 @@ void setInitialConditions()
 	// }
 	
 	// If we did everthing right the universal gravity constant should be 1.
-	GravityConstant = 2.0709735; //pg*micron/ls^2
-	printf("\n The gravity constant = %f in our units", GravityConstant);
+	AttractionForce = 2.0709735; //pg*micron/ls^2
+	printf("\n The attraction force = %f pg*micron/ls^2 when the molecules are at most 1.08 microns apart", AttractionForce);
 	
 	// All spheres are the same diameter and mass so these should be 1..
 	
@@ -477,8 +477,8 @@ void getForces()
 	
 	// kWall = 20000.0;
 	// kWallReduction = 0.5;
-	kSphere = 1000.0;
-	kSphereReduction = 0.2;
+	kSphere = 10000.0;
+	kSphereReduction = 0.18;
 	for(int i = 0; i < NUMBER_OF_BODIES; i++)
 	{	
 		// if(25.0 < Position[i].x + BodyRadius[i] && Position[i].x + BodyRadius[i] < 26.0)
@@ -508,8 +508,8 @@ void getForces()
 			unit.x = d.x/d.w;
 			unit.y = d.y/d.w;
 			unit.z = d.z/d.w;
-			if (d.w <= 1.08) GravityConstant = 2.07099735;
-			else GravityConstant = 0.0;
+			if (d.w <= 1.08) AttractionForce = 2.07099735;
+			else AttractionForce = 0.0;
 			
 			// Nonelastic sphere collisions 
 			if(d.w < (diameterOfMolecule))
@@ -566,7 +566,7 @@ void getForces()
 				
 				// This adds the gravity between asteroids but the gravity is lock in at what it 
 				// was at impact.
-				magnitude = GravityConstant*massOfMolecule*massOfMolecule/(d.w*d.w);
+				magnitude = AttractionForce*massOfMolecule*massOfMolecule/(d.w*d.w);
 				Force[i].x += magnitude*unit.x;
 				Force[i].y += magnitude*unit.y;
 				Force[i].z += magnitude*unit.z;
@@ -578,7 +578,7 @@ void getForces()
 			else
 			{
 				// This adds the gravity between asteroids when they are not touching.
-				magnitude = GravityConstant*massOfMolecule*massOfMolecule/(d.w*d.w);
+				magnitude = AttractionForce*massOfMolecule*massOfMolecule/(d.w*d.w);
 				Force[i].x += magnitude*unit.x;
 				Force[i].y += magnitude*unit.y;
 				Force[i].z += magnitude*unit.z;
@@ -708,7 +708,7 @@ void terminalPrint()
 	printf(" q: Terminates the simulation");
 	
 	// Print the time out in hours.
-	printf("\n\n Time = %f \033[0;34mhours", RunTime*TimeUnitConverter);
+	printf("\n\n Time = %f \033[0;34mseconds", RunTime*TimeUnitConverter);
 	printf("\033[0m");
 	printf("\n");
 }
@@ -728,7 +728,7 @@ int main(int argc, char** argv)
 	//Where your eye is located
 	EyeX = 0.0;
 	EyeY = 0.0;
-	EyeZ = 5.0;
+	EyeZ = 7.0;
 
 	//Where you are looking
 	CenterX = 0.0;
